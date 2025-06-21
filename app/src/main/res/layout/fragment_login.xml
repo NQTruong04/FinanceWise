@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_green">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/app_intro_text"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="80dp"
+            android:text="@string/welcome"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="32sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="22dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/rounded_green_white_background">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:hint="@string/email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textEmailAddress"
+                    android:background="@drawable/edittext_round_background"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30sp"
+                android:hint="@string/password"
+                app:endIconMode="password_toggle"
+                app:endIconCheckable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:background="@drawable/edittext_round_background"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                android:background="@drawable/rounded_light_green_background"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"/>
+            <View
+                android:id="@+id/loader_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:visibility="visible"
+                android:layout_marginTop="50dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/main_green"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password_layout" />
+            <TextView
+                android:id="@+id/forgot_password_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/forgot_password"
+                android:clickable="true"
+                android:focusable="true"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                android:textColor="@color/blue"
+                android:textSize="15sp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sign_button"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_up"
+                android:textSize="20sp"
+                android:backgroundTint="@color/light_green"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password_layout" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/or_sign_up_with"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/fb_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/facebook_sign_in"
+                    android:src="@drawable/icon_fb"/>
+                <ImageView
+                    android:id="@+id/gg_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="15dp"
+                    android:contentDescription="@string/google_sign_in"
+                    android:src="@drawable/icon_gg"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/don_t_have_an_account"
+                    android:textAlignment="center"
+                    android:textStyle="italic"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/signup_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:focusable="true"
+                    android:text="@string/sign_up"
+                    android:clickable="true"
+                    android:textColor="@color/blue"
+                    android:textAlignment="center"
+                    android:textStyle="italic"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

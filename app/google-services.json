@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1038861965890",
+    "project_id": "finance-wise-bd3f7",
+    "storage_bucket": "finance-wise-bd3f7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038861965890:android:b8e4111e12e5841e71abdb",
+        "android_client_info": {
+          "package_name": "com.example.financewise"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXiWs9RZXChJBziTE52UCEG3ZID4l3pB0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

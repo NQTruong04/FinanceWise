@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/intro1Fragment">
+    <fragment
+        android:id="@+id/intro1Fragment"
+        android:name="com.example.financewise.view.intro.Intro1Fragment"
+        android:label="Intro 1">
+        <action
+            android:id="@+id/action_intro1_to_intro2"
+            app:destination="@id/intro2Fragment"
+            app:popUpTo="@id/intro1Fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/intro2Fragment"
+        android:name="com.example.financewise.view.intro.Intro2Fragment"
+        android:label="Intro 2">
+        <action
+            android:id="@+id/action_intro2_to_launch"
+            app:destination="@id/launchFragment"
+            app:popUpTo="@id/intro2Fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/launchFragment"
+        android:name="com.example.financewise.view.splash.LaunchFragment"
+        android:label="Launch">
+        <action
+            android:id="@+id/action_launch_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/launchFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.financewise.view.auth.LoginFragment"
+        android:label="Login">
+    </fragment>
+
+</navigation>
