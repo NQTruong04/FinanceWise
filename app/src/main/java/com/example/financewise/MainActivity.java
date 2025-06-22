@@ -2,6 +2,9 @@ package com.example.financewise;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
+import com.example.financewise.utils.LoginCallBack;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -22,19 +25,21 @@ import com.example.financewise.view.home.HomeFragment;
 import com.example.financewise.view.intro.Intro1Fragment;
 import com.example.financewise.view.intro.Intro2Fragment;
 import com.example.financewise.view.splash.LaunchFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginCallBack {
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
     private ViewPager2 viewPager;
     private IntroPageAdapter adapter;
     private NavigationManager navigationManager;
     private boolean isInLoginMode = false;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "MainActivity onCreate");
 
         // Khởi tạo NavigationManager
+        viewPager = binding.viewPager;
+        bottomNavigationView = binding.bnvBottomNavigation;
+        bottomNavigationView.setVisibility(android.view.View.GONE); // Ẩn BottomNavigationView ban đầu
         navigationManager = new NavigationManager(getSupportFragmentManager(), R.id.fragment_container);
 
         if(PreferenceManager.getInstance(this).isLoggedIn()){
@@ -60,10 +68,11 @@ public class MainActivity extends AppCompatActivity {
             initViews();
             setupViewPager();
         }
+
+        setupBottomNavigation();
     }
 
     private void initViews() {
-        viewPager = binding.viewPager;
         // Đảm bảo fragment_container tồn tại
         if (findViewById(R.id.fragment_container) == null) {
             Log.e(TAG, "fragment_container not found in layout!");
@@ -96,7 +105,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    public void setupBottomNavigation(){
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if(itemId == R.id.nav_home){
+                navigationManager.navigateTo(new HomeFragment(), true);
+                return true;
+            } else if (itemId  == R.id.nav_analysis) {
+                return true;
+            }else if(itemId == R.id.nav_transaction) {
+                return true;
+            }else if (itemId == R.id.nav_category) {
+                return true;
+            }else if (itemId == R.id.nav_profile){
+                return true;
+            }
+            return false;
+        });
+    }
 
     public void navigateToLogin() {
         Log.d(TAG, "navigateToLogin called");
@@ -108,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         // Ẩn ViewPager và hiển thị fragment container
         viewPager.setVisibility(android.view.View.GONE);
         findViewById(R.id.fragment_container).setVisibility(android.view.View.VISIBLE);
-
+        bottomNavigationView.setVisibility(View.GONE); // Ẩn BottomNavigationView
         // Navigate to LoginFragment
         navigationManager.navigateTo(LoginFragment.newInstance(), false);
         Log.d(TAG, "Successfully navigated to LoginFragment");
@@ -118,9 +144,11 @@ public class MainActivity extends AppCompatActivity {
         isInLoginMode = true;
         viewPager.setVisibility(android.view.View.GONE);
         findViewById(R.id.fragment_container).setVisibility(android.view.View.VISIBLE);
+        bottomNavigationView.setVisibility(View.VISIBLE); // Hiển thị BottomNavigationView
+        Log.d(TAG, "Navigating to Home, BottomNavigationView set to VISIBLE");
         navigationManager.navigateTo(new HomeFragment(), false);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
     }
-
     @Override
     public void onBackPressed() {
         if (isInLoginMode) {
@@ -130,6 +158,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onLoginSuccess() {
+        Log.d(TAG, "onLoginSuccess called");
+        navigateToHome();
     }
 
     private static class IntroPageAdapter extends FragmentStateAdapter {

@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +15,14 @@ import android.widget.Toast;
 import com.example.financewise.R;
 import com.example.financewise.databinding.FragmentLoginBinding;
 import com.example.financewise.navigation.NavigationManager;
+import com.example.financewise.utils.LoginCallBack;
 import com.example.financewise.view.BaseFragment;
-import com.example.financewise.view.home.HomeFragment;
 import com.example.financewise.viewmodel.LoginViewModel;
 
 public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewModel> {
     private static final String TAG = "LoginFragment";
     private NavigationManager navigationManager;
+    private LoginCallBack loginCallBack;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -44,6 +43,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
         super.onViewCreated(view, savedInstanceState);
         navigationManager = new NavigationManager(requireActivity().getSupportFragmentManager(), R.id.fragment_container);
         Log.d(TAG, "LoginFragment onViewCreated");
+        loginCallBack = (LoginCallBack) requireActivity();
     }
 
     @Override
@@ -79,7 +79,9 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
                 if(loginResult != null){
                     if (loginResult.isSuccess()) {
                         Toast.makeText(getContext(), loginResult.getMessage(), Toast.LENGTH_SHORT).show();
-                        navigationManager.navigateTo(new HomeFragment(), true);
+                        if(loginCallBack != null) {
+                            loginCallBack.onLoginSuccess();
+                        }
                     } else {
                         Toast.makeText(getContext(), loginResult.getMessage(), Toast.LENGTH_SHORT).show();
                     }

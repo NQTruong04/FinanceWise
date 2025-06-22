@@ -17,5 +17,21 @@
     <string name="welcome">Welcome</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="term_of_use">By continuing, you agree to \nTerms of Use and Privacy Policy.</string>
+    <string name="expense">Expense</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
 
+    <string name="select_category">Select Category</string>
+    <string-array name="category_array">
+        <item>Food</item>
+        <item>Medicine</item>
+        <item>Transport</item>
+        <item>Groceries</item>
+        <item>Salary</item>
+        <item>Rent</item>
+        <item>Entertainment</item>
+        <item>Gift</item>
+        <item>Other</item>
+    </string-array>
 </resources>

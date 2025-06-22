@@ -1,4 +1,4 @@
-package com.example.financewise.view.home;
+package com.example.financewise.view.transaction;
 
 import android.os.Bundle;
 
@@ -10,13 +10,18 @@ import android.view.ViewGroup;
 
 import com.example.financewise.R;
 
-public class HomeFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link AddTransactionFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class AddTransactionFragment extends Fragment {
 
-    public HomeFragment() {
+    public AddTransactionFragment() {
         // Required empty public constructor
     }
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+    public static AddTransactionFragment newInstance(String param1, String param2) {
+        AddTransactionFragment fragment = new AddTransactionFragment();
         return fragment;
     }
 
@@ -29,6 +34,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_add_transaction, container, false);
     }
 }
