@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.transaction.TransactionFragment">
 
     <LinearLayout
@@ -12,7 +11,8 @@
         android:layout_height="match_parent"
         android:background="@color/main_green"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Transaction"
+                android:text="@string/transaction"
                 android:layout_marginStart="70dp"
                 android:layout_marginEnd="80dp"
                 android:textSize="25sp"
@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Total Balance"/>
+                    android:text="@string/total_balance"/>
 
                 <TextView
                     android:id="@+id/tv_total_balance_value"
@@ -92,8 +92,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Income"
-                    android:textSize="15dp"/>
+                    android:text="@string/income"
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -160,7 +160,7 @@
                     android:paddingBottom="4dp"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
-                    android:contentDescription="Add Button"
+                    android:contentDescription="@string/add_button"
                     android:layout_marginEnd="5dp"
                     android:focusable="true"
                     android:src="@drawable/ic_add_main_green" />
@@ -171,7 +171,7 @@
                     android:layout_height="50dp"
                     android:padding="5dp"
                     android:clickable="true"
-                    android:contentDescription="Calender Button"
+                    android:contentDescription="@string/calender_button"
                     android:focusable="true"
                     android:src="@drawable/ic_calender" />
             </LinearLayout>
@@ -182,7 +182,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                tools:ignore="NestedWeights" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

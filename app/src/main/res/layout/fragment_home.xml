@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hi, Welcome Back"
+                android:text="@string/hi_welcome_back"
                 android:textSize="25sp"
                 android:textStyle="bold"/>
 
@@ -50,7 +50,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total Balance"/>
+                    android:text="@string/total_balance"/>
 
                 <TextView
                     android:id="@+id/tv_total_balance_value"
@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total Expensive"/>
+                    android:text="@string/total_expensive"/>
 
                 <TextView
                     android:id="@+id/tv_total_expense_value"
@@ -167,7 +167,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="30% Of Your Expensive, Look good"
+            android:text="@string/_30_of_your_expensive_look_good"
             android:textSize="18sp"/>
 
         <!-- Thay đổi ở đây: Sử dụng layout_weight để LinearLayout này chiếm hết không gian còn lại -->
@@ -223,7 +223,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
-                        android:text="Savings On Goals"/>
+                        android:text="@string/savings_on_goals"/>
                 </LinearLayout>
 
                 <View
@@ -263,7 +263,7 @@
                                 android:id="@+id/tv_revenue_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Revenue Last Weeks"/>
+                                android:text="@string/revenue_last_weeks"/>
 
                             <TextView
                                 android:id="@+id/tv_revenue_value"
@@ -304,7 +304,7 @@
                                 android:id="@+id/tv_food_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Food Last Week "/>
+                                android:text="@string/food_last_week"/>
 
                             <TextView
                                 android:id="@+id/tv_food_value"
@@ -338,7 +338,7 @@
                     android:textSize="18sp"
                     android:background="@drawable/rounded_main_green_tvbg"
                     android:gravity="center"
-                    android:text="Daily"/>
+                    android:text="@string/daily"/>
 
                 <TextView
                     android:id="@+id/btn_weekly"
@@ -351,7 +351,7 @@
                     android:textSize="18sp"
                     android:background="@drawable/rounded_light_green_tvbg"
                     android:gravity="center"
-                    android:text="Weekly"/>
+                    android:text="@string/weekly"/>
 
                 <TextView
                     android:id="@+id/btn_monthly"
@@ -362,7 +362,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:textSize="18sp"
-                    android:text="Monthly"/>
+                    android:text="@string/monthly"/>
             </LinearLayout>
 
             <!-- RecyclerView sử dụng layout_weight để chiếm không gian còn lại -->
@@ -371,7 +371,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                tools:ignore="NestedWeights" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

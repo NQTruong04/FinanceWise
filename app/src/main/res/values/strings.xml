@@ -23,6 +23,32 @@
     <string name="monthly">Monthly</string>
 
     <string name="select_category">Select Category</string>
+    <string name="transaction">Transaction</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="income">Income</string>
+    <string name="add_button">Add Button</string>
+    <string name="calender_button">Calender Button</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="transaction_type">Transaction Type</string>
+    <string name="date">Date</string>
+    <string name="category">Category</string>
+    <string name="amount">Amount</string>
+    <string name="_0_00">$0.00</string>
+    <string name="transaction_title">Transaction Title</string>
+    <string name="enter_title">Enter title</string>
+    <string name="description">Description</string>
+    <string name="enter_description">Enter description</string>
+    <string name="save">Save</string>
+    <string name="april_30_2024">April 30, 2024</string>
+    <string name="hi_welcome_back">Hi, Welcome Back</string>
+    <string name="total_expensive">Total Expensive</string>
+    <string name="_30_of_your_expensive_look_good">30% Of Your Expensive, Look good</string>
+    <string name="savings_on_goals">Savings On Goals</string>
+    <string name="revenue_last_weeks">Revenue Last Weeks</string>
+    <string name="food_last_week">Food Last Week</string>
+    <string name="welcome_to_nexpense_manager">Welcome to \nExpense Manager</string>
+    <string name="next">Next</string>
+    <string name="are_you_ready_to_n_take_control_of_n_your_finances">Are you ready to \n take control of \n your finances?</string>
     <string-array name="category_array">
         <item>Food</item>
         <item>Medicine</item>
