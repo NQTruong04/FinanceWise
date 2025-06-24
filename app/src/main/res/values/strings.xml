@@ -44,11 +44,35 @@
     <string name="total_expensive">Total Expensive</string>
     <string name="_30_of_your_expensive_look_good">30% Of Your Expensive, Look good</string>
     <string name="savings_on_goals">Savings On Goals</string>
-    <string name="revenue_last_weeks">Revenue Last Weeks</string>
+    <string name="revenue_this_month">Revenue This Month</string>
     <string name="food_last_week">Food Last Week</string>
     <string name="welcome_to_nexpense_manager">Welcome to \nExpense Manager</string>
     <string name="next">Next</string>
     <string name="are_you_ready_to_n_take_control_of_n_your_finances">Are you ready to \n take control of \n your finances?</string>
+    <string name="year">Year</string>
+    <string name="my_targets">My Targets</string>
+    <string name="income_amp_expenses"><![CDATA[Income & Expenses]]></string>
+    <string name="analysis">Analysis</string>
+    <string name="search">Search</string>
+    <string name="food">Food</string>
+    <string name="categories">Categories</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="security">Security</string>
+    <string name="setting">Setting</string>
+    <string name="help">Help</string>
+    <string name="logout">Logout</string>
+    <string name="john_smith">John Smith</string>
+    <string name="username">Username</string>
+    <string name="truong040104_gmail_com">truong040104@gmail.com</string>
+    <string name="_0868674213">0868674213</string>
+    <string name="add_saving">Add Saving</string>
+    <string name="travel">Travel</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="add_more">Add More</string>
     <string-array name="category_array">
         <item>Food</item>
         <item>Medicine</item>
@@ -59,5 +83,11 @@
         <item>Entertainment</item>
         <item>Gift</item>
         <item>Other</item>
+    </string-array>
+    <string-array name="saving_array">
+        <item>Travel</item>
+        <item>Car</item>
+        <item>House</item>
+        <item>Wedding</item>
     </string-array>
 </resources>

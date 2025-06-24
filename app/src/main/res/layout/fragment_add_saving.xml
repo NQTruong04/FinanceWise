@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.transaction.TransactionFragment">
+    tools:context=".view.categories.AddSavingFragment">
 
     <LinearLayout
         android:id="@+id/ll_header_container"
@@ -34,7 +34,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="43dp"
                 android:gravity="center"
-                android:text="@string/add_transaction"
+                android:text="@string/add_saving"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -61,44 +61,6 @@
             android:background="@drawable/rounded_green_white_background"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/transaction_type"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:id="@+id/rg_report_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-                <RadioButton
-                    android:id="@+id/rb_income"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/income"
-                    android:textSize="16sp"
-                    android:buttonTint="#4CAF50"
-                    android:checked="false"
-                    android:textColor="@android:color/black" />
-
-                <RadioButton
-                    android:id="@+id/rb_expense"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/expense"
-                    android:textSize="16sp"
-                    android:buttonTint="#4CAF50"
-                    android:textColor="@android:color/black"
-                    android:checked="true" />
-
-            </RadioGroup>
             <!-- Date -->
             <TextView
                 android:layout_width="wrap_content"
@@ -107,6 +69,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="8dp" />
 
             <LinearLayout
@@ -118,7 +81,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="25dp"
                 android:clickable="true"
                 android:focusable="true">
 
@@ -132,6 +95,7 @@
                     android:textColor="@color/black" />
 
                 <ImageView
+                    android:id="@+id/ic_calender"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_calender" />
@@ -154,7 +118,7 @@
                 android:background="@drawable/rounded_light_green_background"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="25dp"
                 android:prompt="@string/select_category"
                 android:entries="@array/category_array"/>
             <!-- Amount -->
@@ -178,7 +142,7 @@
                 android:inputType="numberDecimal"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="25dp" />
             <!-- Transaction Title -->
             <TextView
                 android:layout_width="wrap_content"
@@ -199,7 +163,7 @@
                 android:hint="@string/enter_title"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="25dp" />
 
             <!-- Description -->
             <TextView
@@ -223,7 +187,7 @@
                 android:gravity="top"
                 android:inputType="textMultiLine"
                 android:lines="5"
-                android:layout_marginBottom="30dp" />
+                android:layout_marginBottom="45dp" />
 
             <!-- Save Button -->
             <com.google.android.material.button.MaterialButton
