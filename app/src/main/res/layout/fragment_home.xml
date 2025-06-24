@@ -200,6 +200,8 @@
                         android:layout_height="100dp">
 
                         <!-- Vòng tròn tiến trình -->
+
+                        <!-- Icon ô tô -->
                         <ProgressBar
                             android:id="@+id/pb_progress_circle"
                             style="@android:style/Widget.ProgressBar.Horizontal"
@@ -211,7 +213,6 @@
                             android:progressDrawable="@drawable/circular_progress"
                             android:rotation="270" />
 
-                        <!-- Icon ô tô -->
                         <ImageView
                             android:layout_width="48dp"
                             android:layout_height="48dp"
@@ -263,7 +264,7 @@
                                 android:id="@+id/tv_revenue_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/revenue_last_weeks"/>
+                                android:text="@string/revenue_this_month"/>
 
                             <TextView
                                 android:id="@+id/tv_revenue_value"
