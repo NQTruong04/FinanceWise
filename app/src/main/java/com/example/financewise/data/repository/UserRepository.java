@@ -12,14 +12,33 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserRepository extends BaseFirestoreRepository<User> {
+    private static final String TAG = "UserRepository";
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public UserRepository() {
         super("users");
     }
-    public void createUser(User user, OnCompleteListener<DocumentReference> listener){
-        addItem(user, listener);
+    public void createUser(User user, OnCompleteListener<Void> listener) {
+        Log.d(TAG, "Creating user with userId: " + user.getUserId());
+        db.collection("users")
+                .document(user.getUserId())
+                .set(user)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "User profile created successfully for userId: " + user.getUserId());
+                    } else {
+                        Log.e(TAG, "Failed to create user profile: " + task.getException().getMessage());
+                    }
+                    // Truyền task cho listener để thông báo kết quả
+                    if (listener != null) {
+                        listener.onComplete(task);
+                    }
+                });
     }
     public void updateUser(String userId, User user, OnCompleteListener<Void> listener) {
         updateItem(userId, user, listener);
+    }
+    public LiveData<User> getUser(String userId){
+        return getItem(userId, User.class);
     }
 }

@@ -2,11 +2,11 @@ package com.example.financewise.view.auth;
 
 public class LoginResult {
     private final boolean success;
-    private final String Message;
+    private final String message;
 
     public LoginResult(boolean success, String errorMessage) {
         this.success = success;
-        this.Message = errorMessage;
+        this.message = errorMessage;
     }
 
     public boolean isSuccess() {
@@ -14,6 +14,6 @@ public class LoginResult {
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 }

@@ -179,7 +179,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/calender_button"
                     android:focusable="true"
-                    android:src="@drawable/ic_calender" />
+                    android:src="@drawable/ic_calender2" />
             </LinearLayout>
 
             <!-- RecyclerView sử dụng layout_weight để chiếm không gian còn lại -->

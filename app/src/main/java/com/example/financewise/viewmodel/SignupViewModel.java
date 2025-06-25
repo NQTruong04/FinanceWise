@@ -12,16 +12,13 @@ import com.example.financewise.data.repository.UserRepository;
 import com.example.financewise.view.auth.SignupResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 
-import org.checkerframework.checker.units.qual.A;
-
-public class SignupViewModel extends BaseViewModel{
+public class SignupViewModel extends BaseViewModel {
     private static final String TAG = "SignupViewModel";
     private final MutableLiveData<SignupResult> signupResult = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final AuthRepository authRepository;
     private final UserRepository userRepository;
 
@@ -33,12 +30,13 @@ public class SignupViewModel extends BaseViewModel{
     public LiveData<SignupResult> getSignupResult() {
         return signupResult;
     }
+
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
     public void signup(String name, String email, String phone, String password, String confirmPassword) {
-        if (!isValidName(name) || !isValidEmail(email) || !isValidPhone(phone) || !isValidPassword(password) ||!password.equals(confirmPassword)) {
+        if (!isValidName(name) || !isValidEmail(email) || !isValidPhone(phone) || !isValidPassword(password) || !password.equals(confirmPassword)) {
             signupResult.setValue(new SignupResult(false, getValidationError(name, email, phone, password, confirmPassword)));
             return;
         }
@@ -47,26 +45,28 @@ public class SignupViewModel extends BaseViewModel{
         authRepository.register(email, password, task -> {
             if (task.isSuccessful()) {
                 FirebaseUser firebaseUser = authRepository.getCurrentUser();
-                if(firebaseUser != null){
+                if (firebaseUser != null) {
                     String userId = firebaseUser.getUid();
-                    User newUser = new User(userId, name, email, phone, 0.0);
-                    userRepository.createUser(newUser, new OnCompleteListener<DocumentReference>() {
+                    User newUser = new User(userId, name, email, phone, 0);
+                    userRepository.createUser(newUser, new OnCompleteListener<Void>() {
                         @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task1) {
-                            if(task1.isSuccessful()){
+                        public void onComplete(@NonNull Task<Void> task1) {
+                            if (task1.isSuccessful()) {
                                 signupResult.postValue(new SignupResult(true, "Signup successful"));
                             } else {
-                                signupResult.postValue(new SignupResult(false, "Failed to create user profile"));
+                                signupResult.postValue(new SignupResult(false, "Failed to create user profile: " + task1.getException().getMessage()));
                             }
+                            isLoading.setValue(false); // Đặt lại isLoading sau khi hoàn tất
                         }
                     });
-                }else {
+                } else {
                     signupResult.postValue(new SignupResult(false, "Signup failed, user not found"));
+                    isLoading.setValue(false);
                 }
             } else {
                 signupResult.postValue(new SignupResult(false, task.getException().getMessage()));
+                isLoading.setValue(false);
             }
-            isLoading.setValue(false);
         });
     }
 

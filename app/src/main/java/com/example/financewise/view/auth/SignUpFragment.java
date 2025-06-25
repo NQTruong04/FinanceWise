@@ -18,6 +18,8 @@ import com.example.financewise.navigation.NavigationManager;
 import com.example.financewise.view.BaseFragment;
 import com.example.financewise.view.home.HomeFragment;
 import com.example.financewise.viewmodel.SignupViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpFragment extends BaseFragment<FragmentSignUpBinding, SignupViewModel> {
     private static final String TAG = "SignUpFragment";
@@ -69,10 +71,18 @@ public class SignUpFragment extends BaseFragment<FragmentSignUpBinding, SignupVi
         viewModel.getSignupResult().observe(getViewLifecycleOwner(), new Observer<SignupResult>() {
             @Override
             public void onChanged(SignupResult signupResult) {
-                if(signupResult != null ){
-                    if(signupResult.isSuccess()){
+                if (signupResult != null) {
+                    if (signupResult.isSuccess()) {
                         Toast.makeText(getContext(), signupResult.getMessage(), Toast.LENGTH_SHORT).show();
-                        navigationManager.navigateTo(new HomeFragment(), false);
+                        // Lấy userId từ FirebaseAuth
+                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (firebaseUser != null) {
+                            String userId = firebaseUser.getUid();
+                            // Chuyển sang HomeFragment với userId
+                            navigationManager.navigateTo(HomeFragment.newInstance(userId), false);
+                        } else {
+                            Toast.makeText(getContext(), "User not found after signup", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(getContext(), signupResult.getMessage(), Toast.LENGTH_SHORT).show();
                     }

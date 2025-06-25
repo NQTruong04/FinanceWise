@@ -13,7 +13,7 @@ import androidx.viewbinding.ViewBinding;
 
 import com.example.financewise.viewmodel.BaseViewModel;
 
-public abstract class BaseFragment <VB extends ViewBinding, VM extends BaseViewModel> extends Fragment {
+public abstract class BaseFragment<VB extends ViewBinding, VM extends BaseViewModel> extends Fragment {
     protected VB binding;
     protected VM viewModel;
 
@@ -40,6 +40,8 @@ public abstract class BaseFragment <VB extends ViewBinding, VM extends BaseViewM
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        if (viewModel != null && !viewModel.isDisposed()) {
+            viewModel.compositeDisposable.clear(); // Đảm bảo dispose nếu cần
+        }
     }
-
 }
