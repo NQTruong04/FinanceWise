@@ -66,7 +66,7 @@ public class BaseFirestoreRepository<T> {
         return itemsLiveData;
     }
 
-    public LiveData<List<T>> getIteByDateRange(String userId, String dataField, long startDate, long endDate, Class<T> itemClass) {
+    public LiveData<List<T>> getItemByDateRange(String userId, String dataField, long startDate, long endDate, Class<T> itemClass) {
         MutableLiveData<List<T>> itemsLiveData = new MutableLiveData<>();
         collectionReference.whereEqualTo("userId", userId)
                 .whereGreaterThanOrEqualTo(dataField, new java.util.Date(startDate))

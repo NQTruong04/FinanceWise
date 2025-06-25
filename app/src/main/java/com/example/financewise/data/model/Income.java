@@ -1,5 +1,6 @@
 package com.example.financewise.data.model;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
@@ -8,18 +9,18 @@ public class Income {
     private String id;
     private String userId;
     private String category;
-    private Date date;
-    private double amount;
+    private Timestamp date;
+    private long amount;
     private String title;
     private String message;
     @ServerTimestamp
-    private Date createdAt;
+    private Timestamp createdAt;
 
     public Income() {
         // Default constructor required for Firestore
     }
 
-    public Income(String userId, String category, Date date, double amount, String title, String message) {
+    public Income(String userId, String category, Timestamp date, long amount, String title, String message) {
         this.userId = userId;
         this.category = category;
         this.date = date;
@@ -35,14 +36,14 @@ public class Income {
     public void setUserId(String userId) { this.userId = userId; }
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
-    public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
+    public Timestamp getDate() { return date; }
+    public void setDate(Timestamp date) { this.date = date; }
+    public long getAmount() { return amount; }
+    public void setAmount(long amount) { this.amount = amount; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     public String getMessage() { return message; }
     public void setMessage(String message) { this.message = message; }
-    public Date getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 }

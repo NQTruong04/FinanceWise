@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 public class PreferenceManager {
     private static final String PREF_NAME = "FinanceWisePrefs";
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_IS_FIRST_TIME = "isFirstTime";
     private static PreferenceManager instance;
     private final SharedPreferences sharedPreferences;
 
@@ -28,6 +29,12 @@ public class PreferenceManager {
         return sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
+    public void setFirstTime(boolean isFirstTime){
+        sharedPreferences.edit().putBoolean(KEY_IS_FIRST_TIME, isFirstTime).apply();
+    }
+    public boolean isFirstTime(){
+        return sharedPreferences.getBoolean(KEY_IS_FIRST_TIME, true);
+    }
     public void clear() {
         sharedPreferences.edit().clear().apply();
     }

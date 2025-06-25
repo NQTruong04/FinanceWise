@@ -33,7 +33,7 @@
         android:id="@+id/bnv_bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_main_green_tvbg"
+        android:background="@drawable/rounded_main_green_menubar"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
         app:itemIconSize="30dp"

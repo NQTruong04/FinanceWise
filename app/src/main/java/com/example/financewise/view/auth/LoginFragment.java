@@ -95,7 +95,6 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
                 binding.progressBar.setVisibility(aBoolean ? View.VISIBLE : View.GONE);
                 binding.loaderView.setVisibility(!aBoolean ? View.VISIBLE : View.GONE);
                 binding.loginButton.setEnabled(!aBoolean);
-                // TODO: Show/hide loading indicator
             }
         });
     }

@@ -40,5 +40,14 @@
         android:name="com.example.financewise.view.auth.LoginFragment"
         android:label="Login">
     </fragment>
-
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.financewise.view.home.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_home_to_login"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

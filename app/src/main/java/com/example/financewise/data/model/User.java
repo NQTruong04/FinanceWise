@@ -1,4 +1,5 @@
 package com.example.financewise.data.model;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
@@ -8,14 +9,14 @@ public class User {
     private String name;
     private String email;
     private String phone;
-    private double totalBalance;
+    private long totalBalance;
     @ServerTimestamp
-    private Date createdAt;
+    private Timestamp createdAt;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
-    public User(String userId, String name, String email, String phone, double totalBalance) {
+    public User(String userId, String name, String email, String phone, long totalBalance) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -55,19 +56,19 @@ public class User {
         this.phone = phone;
     }
 
-    public double getTotalBalance() {
+    public long getTotalBalance() {
         return totalBalance;
     }
 
-    public void setTotalBalance(double totalBalance) {
+    public void setTotalBalance(long totalBalance) {
         this.totalBalance = totalBalance;
     }
 
-    public Date getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 }
