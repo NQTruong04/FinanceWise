@@ -157,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.3" />
+                app:layout_constraintGuide_percent="0.18" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -293,7 +293,8 @@
                             android:id="@+id/iv_food_icon"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/ic_food"/>
+
+                            android:src="@drawable/ic_food_black"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"

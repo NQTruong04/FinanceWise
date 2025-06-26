@@ -17,16 +17,24 @@ public class BaseFirestoreRepository<T> {
     protected final FirebaseFirestore firestore;
     protected final CollectionReference collectionReference;
 
-    protected BaseFirestoreRepository(String collectionName) {
+    protected BaseFirestoreRepository(String collectionName, String userId) {
         this.firestore = FirebaseFirestore.getInstance();
-        this.collectionReference = firestore.collection(collectionName);
+        if(userId == null){
+            throw new IllegalArgumentException("userId cannot be null");
+        }
+        this.collectionReference = firestore.collection("users")
+                .document(userId)
+                .collection(collectionName);
+        Log.d(TAG, "Initialized collectionReference for userId: " + userId + ", path: " + collectionReference.getPath());
     }
 
     public void addItem(T item, OnCompleteListener<DocumentReference> listener) {
         collectionReference.add(item).addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()) {
+                Log.d(TAG, "Added item successfully at path: " + task1.getResult().getPath());
                 listener.onComplete(task1);
             } else {
+                Log.e(TAG, "Error adding item: " + task1.getException(), task1.getException());
                 listener.onComplete(task1);
             }
         });
@@ -38,17 +46,26 @@ public class BaseFirestoreRepository<T> {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
                         T item = task.getResult().toObject(itemClass);
+                        Log.d(TAG, "Retrieved item at path: " + collectionReference.document(documentId).getPath() + ", data: " + item);
                         itemLiveData.setValue(item);
                     } else {
-                        Log.e(TAG, "Error getting item: ", task.getException());
-                        itemLiveData.setValue(null); // Error or no result
+                        Log.e(TAG, "Error getting item at path: " + collectionReference.document(documentId).getPath() + ", error: " + task.getException(), task.getException());
+                        itemLiveData.setValue(null);
                     }
                 });
         return itemLiveData;
     }
 
     public void updateItem(String documentId, T item, OnCompleteListener<Void> listener) {
-        collectionReference.document(documentId).set(item, com.google.firebase.firestore.SetOptions.merge()).addOnCompleteListener(listener);
+        collectionReference.document(documentId).set(item, com.google.firebase.firestore.SetOptions.merge())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "Updated item at path: " + collectionReference.document(documentId).getPath());
+                    } else {
+                        Log.e(TAG, "Error updating item at path: " + collectionReference.document(documentId).getPath() + ", error: " + task.getException(), task.getException());
+                    }
+                    listener.onComplete(task);
+                });
     }
 
     public LiveData<List<T>> getItemsByField(String fieldName, Object value, Class<T> itemClass) {
@@ -57,27 +74,28 @@ public class BaseFirestoreRepository<T> {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
                         List<T> items = task.getResult().toObjects(itemClass);
+                        Log.d(TAG, "Retrieved items by field at path: " + collectionReference.getPath() + ", size: " + (items != null ? items.size() : 0));
                         itemsLiveData.setValue(items);
                     } else {
-                        Log.e(TAG, "Error getting items by field: ", task.getException());
-                        itemsLiveData.setValue(null); // Error or no result
+                        Log.e(TAG, "Error getting items by field at path: " + collectionReference.getPath() + ", error: " + task.getException(), task.getException());
+                        itemsLiveData.setValue(null);
                     }
                 });
         return itemsLiveData;
     }
 
-    public LiveData<List<T>> getItemByDateRange(String userId, String dataField, long startDate, long endDate, Class<T> itemClass) {
+    public LiveData<List<T>> getItemsByDateRange( String dateField, long startDate, long endDate, Class<T> itemClass) {
         MutableLiveData<List<T>> itemsLiveData = new MutableLiveData<>();
-        collectionReference.whereEqualTo("userId", userId)
-                .whereGreaterThanOrEqualTo(dataField, new java.util.Date(startDate))
-                .whereLessThanOrEqualTo(dataField, new java.util.Date(endDate))
+        collectionReference.whereGreaterThanOrEqualTo(dateField, new java.util.Date(startDate))
+                .whereLessThanOrEqualTo(dateField, new java.util.Date(endDate))
                 .get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful() && task.getResult() != null) {
                         List<T> items = task.getResult().toObjects(itemClass);
+                        Log.d(TAG, "Retrieved items by date range at path: " + collectionReference.getPath() + ", size: " + (items != null ? items.size() : 0));
                         itemsLiveData.setValue(items);
                     } else {
-                        Log.e(TAG, "Error getting items by date range: ", task.getException());
+                        Log.e(TAG, "Error getting items by date range at path: " + collectionReference.getPath() + ", error: " + task.getException(), task.getException());
                         itemsLiveData.setValue(null);
                     }
                 });

@@ -10,13 +10,13 @@ import java.util.List;
 
 public class IncomeRepository extends BaseFirestoreRepository<Income> {
     public static final String TAG = "IncomeRepository";
-    public IncomeRepository(){
-        super("incomes");
+    public IncomeRepository(String userId){
+        super("incomes", userId);
     }
     public void addIncome(Income income, OnCompleteListener<DocumentReference> listener) {
         addItem(income, listener);
     }
-    public LiveData<List<Income>> getIncomesByUserAndDateRange(String userId, long startDate, long endDate) {
-        return getItemByDateRange(userId, "date", startDate, endDate, Income.class);
+    public LiveData<List<Income>> getIncomesByUserAndDateRange(long startDate, long endDate) {
+        return getItemsByDateRange( "date", startDate, endDate, Income.class);
     }
 }

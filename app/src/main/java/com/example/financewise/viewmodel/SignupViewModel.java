@@ -20,11 +20,11 @@ public class SignupViewModel extends BaseViewModel {
     private final MutableLiveData<SignupResult> signupResult = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
     private final AuthRepository authRepository;
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     public SignupViewModel() {
         this.authRepository = new AuthRepository();
-        this.userRepository = new UserRepository();
+        this.userRepository = new UserRepository(null);
     }
 
     public LiveData<SignupResult> getSignupResult() {
@@ -47,6 +47,7 @@ public class SignupViewModel extends BaseViewModel {
                 FirebaseUser firebaseUser = authRepository.getCurrentUser();
                 if (firebaseUser != null) {
                     String userId = firebaseUser.getUid();
+                    userRepository = new UserRepository(userId);
                     User newUser = new User(userId, name, email, phone, 0);
                     userRepository.createUser(newUser, new OnCompleteListener<Void>() {
                         @Override

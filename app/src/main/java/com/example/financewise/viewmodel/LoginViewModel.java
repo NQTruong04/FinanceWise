@@ -22,12 +22,12 @@ public class LoginViewModel extends BaseViewModel {
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private final MutableLiveData<User> user = new MutableLiveData<>();
     private final AuthRepository authRepository;
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
 
     public LoginViewModel() {
         this.authRepository = new AuthRepository();
-        this.userRepository = new UserRepository();
+        this.userRepository = null;
     }
 
     public LiveData<LoginResult> getLoginResult() {
@@ -53,6 +53,7 @@ public class LoginViewModel extends BaseViewModel {
                     FirebaseUser fbUser = authRepository.getCurrentUser();
                     if (fbUser != null) {
                         String userId = fbUser.getUid();
+                        userRepository = new UserRepository(userId);
                         userRepository.getItem(userId, User.class).observeForever(userFromDb ->{
                             if(userFromDb!= null){
                                 user.setValue(userFromDb);

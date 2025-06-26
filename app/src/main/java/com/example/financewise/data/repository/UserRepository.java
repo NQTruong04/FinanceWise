@@ -15,8 +15,8 @@ public class UserRepository extends BaseFirestoreRepository<User> {
     private static final String TAG = "UserRepository";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public UserRepository() {
-        super("users");
+    public UserRepository(String userId) {
+        super("users", userId);
     }
     public void createUser(User user, OnCompleteListener<Void> listener) {
         Log.d(TAG, "Creating user with userId: " + user.getUserId());

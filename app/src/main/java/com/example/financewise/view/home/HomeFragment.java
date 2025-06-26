@@ -1,7 +1,6 @@
 package com.example.financewise.view.home;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -21,6 +20,7 @@ import com.example.financewise.view.BaseFragment;
 import com.example.financewise.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
+
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
     private static final String TAG = "HomeFragment";
     private static final String ARG_USER_ID = "userId";
@@ -45,6 +45,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupUI();
+        observeViewModel();
+    }
+
+    @Override
     protected void setupUI() {
         String userId = getArguments() != null ? getArguments().getString("userId") : null;
         Log.d(TAG, "setupUI: userId = " + userId);
@@ -54,7 +61,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             return;
         }
 
-        viewModel.setUserId(userId);
+        viewModel.setUserId(userId); // This triggers loadData immediately
 
         // Setup RecyclerView
         adapter = new TransactionAdapter(requireContext(), new ArrayList<>());
@@ -62,8 +69,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         binding.rvTransactionList.setAdapter(adapter);
 
         // Setup notification icon click
-        binding.ivNotificationIcon.setOnClickListener(v -> {}
-        );
+        binding.ivNotificationIcon.setOnClickListener(v -> {});
 
         // Setup period buttons
         setupPeriodButtons();
@@ -79,17 +85,67 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         viewModel.getTransactions().observe(getViewLifecycleOwner(), transactions -> {
             Log.d(TAG, "Transactions updated, size: " + (transactions != null ? transactions.size() : 0));
-            if (adapter != null) adapter.submitList(transactions);
+            if (adapter != null) {
+                try {
+                    adapter.submitList(transactions != null ? new ArrayList<>(transactions) : new ArrayList<>());
+                } catch (Exception e) {
+                    Log.e(TAG, "Error updating adapter: " + e.getMessage());
+                }
+            }
         });
 
         viewModel.getTotalBalance().observe(getViewLifecycleOwner(), balance -> {
             Log.d(TAG, "Total Balance updated: " + balance);
-            if (binding.tvTotalBalanceValue != null) binding.tvTotalBalanceValue.setText(balance);
+            try {
+                binding.tvTotalBalanceValue.setText(balance != null ? balance : "0");
+            } catch (Exception e) {
+                Log.e(TAG, "Error setting total balance: " + e.getMessage());
+            }
         });
 
         viewModel.getTotalExpense().observe(getViewLifecycleOwner(), expense -> {
             Log.d(TAG, "Total Expense updated: " + expense);
-            if (binding.tvTotalExpenseValue != null) binding.tvTotalExpenseValue.setText(expense);
+            try {
+                binding.tvTotalExpenseValue.setText(expense != null ? expense : "0");
+            } catch (Exception e) {
+                Log.e(TAG, "Error setting total expense: " + e.getMessage());
+            }
+        });
+
+        viewModel.getTotalIncome().observe(getViewLifecycleOwner(), income -> { // Observe totalIncome
+            try {
+                binding.tvTotalGoal.setText(formatCurrency(income != null ? income : 0L)); // Update tv_total_goal
+                Log.d(TAG, "tvTotalGoal updated to: " + formatCurrency(income != null ? income : 0L));
+            } catch (Exception e) {
+                Log.e(TAG, "Error setting total goal: " + e.getMessage());
+            }
+        });
+
+        viewModel.getTotalIncomeLastWeek().observe(getViewLifecycleOwner(), income -> {
+            try {
+                binding.tvRevenueValue.setText(formatCurrency(income));
+            } catch (Exception e) {
+                Log.e(TAG, "Error setting revenue value: " + e.getMessage());
+            }
+        });
+
+        // Handle food expense for last week
+        viewModel.getTotalFoodLastWeek().observe(getViewLifecycleOwner(), foodExpense -> {
+            try {
+                binding.tvFoodValue.setText(formatCurrency(foodExpense));
+            } catch (Exception e) {
+                Log.e(TAG, "Error setting food value: " + e.getMessage());
+            }
+        });
+
+        viewModel.getExpensePercentage().observe(getViewLifecycleOwner(), percentage -> {
+            try {
+                binding.tvProgressPercentage.setText(String.format("%.0f%%", percentage));
+                binding.tvExpenseStatus.setText(getExpenseStatusText(percentage));
+                updateProgressBarGuideline(percentage);
+            } catch (Exception e) {
+                Log.e(TAG, "Error setting progress data: " + e.getMessage());
+            }
         });
     }
 
@@ -117,5 +173,27 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
                 "weekly".equals(selectedPeriod) ? R.drawable.rounded_main_green_tvbg : R.drawable.rounded_light_green_background);
         binding.btnMonthly.setBackgroundResource(
                 "monthly".equals(selectedPeriod) ? R.drawable.rounded_main_green_tvbg : R.drawable.rounded_light_green_background);
+    }
+
+    private void updateProgressBarGuideline(float percentage) {
+        if(percentage/100 >= 0.18){
+            binding.guidelineEnd.setGuidelinePercent(percentage/100f);
+        }else{
+            binding.guidelineEnd.setGuidelinePercent(18/100f);
+        }
+    }
+
+    private String getExpenseStatusText(float percentage) {
+        if (percentage < 50) {
+            return "Less than 50% of your expenses, looking good!";
+        } else if (percentage < 80) {
+            return "Over 50% of your expenses, be cautious!";
+        } else {
+            return "Over 80% of your expenses, take action!";
+        }
+    }
+
+    private String formatCurrency(long amount) {
+        return String.format("%,d", amount);
     }
 }

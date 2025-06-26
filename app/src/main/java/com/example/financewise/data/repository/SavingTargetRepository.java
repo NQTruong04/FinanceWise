@@ -1,14 +1,18 @@
 package com.example.financewise.data.repository;
 
+import android.util.Log;
+
 import com.example.financewise.data.model.Saving;
 import com.example.financewise.data.model.SavingTarget;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentReference;
 
-public class SavingTargetRepository extends BaseFirestoreRepository<SavingTarget>{
+public class SavingTargetRepository extends BaseFirestoreRepository<SavingTarget> {
 
-    protected SavingTargetRepository() {
-        super("savingTargets");
+    private static final String TAG = "SavingTargetRepository";
+
+    public SavingTargetRepository(String userId) {
+        super("savingTargets", userId); // Truyền userId vào constructor
     }
 
     public void addSavingTarget(SavingTarget savingTarget, OnCompleteListener<DocumentReference> listener) {
@@ -16,10 +20,17 @@ public class SavingTargetRepository extends BaseFirestoreRepository<SavingTarget
     }
 
     public void updateSavingTargetAmount(String documentId, double newAmount, OnCompleteListener<Void> listener) {
-       getDocumentReference(documentId).update("amountSaved", newAmount).addOnCompleteListener(listener);
+        getDocumentReference(documentId).update("amountSaved", newAmount).addOnCompleteListener(listener);
     }
 
     public void addSaving(String savingTargetId, Saving saving, OnCompleteListener<DocumentReference> listener) {
-        getDocumentReference(savingTargetId).collection("savings").add(saving).addOnCompleteListener(listener);
+        getDocumentReference(savingTargetId).collection("savings").add(saving).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d(TAG, "Added saving at path: " + task.getResult().getPath());
+            } else {
+                Log.e(TAG, "Error adding saving: " + task.getException(), task.getException());
+            }
+            listener.onComplete(task);
+        });
     }
 }

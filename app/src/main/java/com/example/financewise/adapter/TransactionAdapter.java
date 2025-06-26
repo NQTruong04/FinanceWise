@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.financewise.R;
@@ -41,7 +42,7 @@ public class TransactionAdapter extends BaseAdapter<HomeViewModel.TransactionIte
         holder.binding.tvDate.setText(formatDate(item.getDate()));
         holder.binding.tvTitle.setText(item.getTitle());
         holder.binding.tvAmount.setText(String.format("%,d", item.getAmount()));
-
+        setAmountColor(holder.binding.tvAmount, item.getAmount());
         // Set icon based on category
         int iconRes = getCategoryIcon(item.getCategory());
         holder.binding.ivCategoryIcon.setImageResource(iconRes);
@@ -54,7 +55,7 @@ public class TransactionAdapter extends BaseAdapter<HomeViewModel.TransactionIte
     private int getCategoryIcon(String category) {
         switch (category.toLowerCase()) {
             case "salary": return R.drawable.ic_salary;
-            case "food": return R.drawable.ic_food;
+            case "food": return R.drawable.ic_food_white;
             case "medicine": return R.drawable.ic_medicine;
             case "transport": return R.drawable.ic_transport;
             case "groceries": return R.drawable.ic_groceries;
@@ -63,6 +64,13 @@ public class TransactionAdapter extends BaseAdapter<HomeViewModel.TransactionIte
             case "gift": return R.drawable.ic_gifts;
             case "other": return R.drawable.ic_more;
             default: return R.drawable.ic_white_salary;
+        }
+    }
+    private void setAmountColor(TextView tvAmount, long amount){
+        if(amount >= 0){
+            tvAmount.setTextColor(ContextCompat.getColor(context, R.color.black));
+        }else{
+            tvAmount.setTextColor(ContextCompat.getColor(context, R.color.ocean_blue));
         }
     }
     private String formatDate(Timestamp timestamp){

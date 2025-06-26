@@ -1,6 +1,7 @@
 package com.example.financewise.data.model;
 
 public class UserStats {
+    private String userStatId;
     private long incomeToday, expenseToday, incomeThisWeek, expenseThisWeek;
     private long incomeThisMonth, expenseThisMonth, totalIncome, totalExpense;
 
@@ -23,4 +24,12 @@ public class UserStats {
     public void setTotalIncome(long totalIncome) { this.totalIncome = totalIncome; }
     public long getTotalExpense() { return totalExpense; }
     public void setTotalExpense(long totalExpense) { this.totalExpense = totalExpense; }
+
+    public String getUserStatId() {
+        return userStatId;
+    }
+
+    public void setUserStatId(String userStatId) {
+        this.userStatId = userStatId;
+    }
 }
