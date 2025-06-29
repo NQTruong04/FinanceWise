@@ -2,7 +2,6 @@ package com.example.financewise.viewmodel;
 
 import android.util.Log;
 
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -33,6 +32,7 @@ public class HomeViewModel extends BaseViewModel {
     private ExpenseRepository expenseRepository;
     private UserStatsRepository userStatsRepository;
     private final MutableLiveData<List<TransactionItem>> transactions = new MutableLiveData<>();
+    private final MutableLiveData<List<TransactionItem>> allTransactions = new MutableLiveData<>();
     private final MutableLiveData<String> totalBalance = new MutableLiveData<>("0");
     private final MutableLiveData<String> totalExpense = new MutableLiveData<>("0");
     private final MutableLiveData<Long> totalIncome = new MutableLiveData<>(0L); // New field for totalIncome from UserStats
@@ -61,6 +61,10 @@ public class HomeViewModel extends BaseViewModel {
 
     public LiveData<List<TransactionItem>> getTransactions() {
         return transactions;
+    }
+
+    public LiveData<List<TransactionItem>> getAllTransaction(){
+        return allTransactions;
     }
 
     public LiveData<String> getTotalBalance() {
@@ -113,7 +117,8 @@ public class HomeViewModel extends BaseViewModel {
 
         cleanupObservers(); // Cleanup before loading new data
         loadUserStats();
-        loadTransactions();
+        loadTransactionsByPeriod();
+        loadAllTransactions();
         loadLastWeekData();
     }
 
@@ -136,7 +141,7 @@ public class HomeViewModel extends BaseViewModel {
         observers.put("userStats", observer);
     }
 
-    private void loadTransactions() {
+    private void loadTransactionsByPeriod() {
         long startDate = getStartDateForPeriod();
         long endDate = new Date().getTime();
         Log.d(TAG, "Loading data for period: " + selectedPeriod + ", startDate: " + new Date(startDate) + ", endDate: " + new Date(endDate));
@@ -150,6 +155,7 @@ public class HomeViewModel extends BaseViewModel {
                 transactionList.addAll(processExpenses(expenseList));
                 Collections.sort(transactionList, (item1, item2) -> item2.getDate().compareTo(item1.getDate()));
                 transactions.setValue(new ArrayList<>(transactionList));
+                Log.d(TAG, "Transactions by period updated, size: " + transactionList.size());
             });
         };
         Observer<List<Expense>> expenseObserver = expenseList -> {
@@ -160,6 +166,31 @@ public class HomeViewModel extends BaseViewModel {
         observeForeverWithKey("expenses", expenses, expenseObserver, null);
         observers.put("incomes", incomeObserver);
         observers.put("expenses", expenseObserver);
+    }
+
+    private void loadAllTransactions() {
+        LiveData<List<Income>> allIncomes = incomeRepository.getAllItems();
+        LiveData<List<Expense>> allExpenses = expenseRepository.getAllItems();
+
+        Observer<List<Income>> incomeObserver = incomeList -> {
+            List<TransactionItem> transactionList = processIncomes(incomeList);
+            allExpenses.observeForever(expenseList -> {
+                transactionList.addAll(processExpenses(expenseList));
+                Collections.sort(transactionList, (item1, item2) -> item2.getDate().compareTo(item1.getDate()));
+                allTransactions.setValue(new ArrayList<>(transactionList));
+                Log.d(TAG, "All transactions updated, size: " + (transactionList != null ? transactionList.size() : 0));
+            });
+            if (incomeList == null) Log.w(TAG, "incomeList is null in loadAllTransactions");
+        };
+        Observer<List<Expense>> expenseObserver = expenseList -> {
+            // Handled by nested observeForever above
+            if (expenseList == null) Log.w(TAG, "expenseList is null in loadAllTransactions");
+        };
+
+        observeForeverWithKey("allIncomes", allIncomes, incomeObserver, null);
+        observeForeverWithKey("allExpenses", allExpenses, expenseObserver, null);
+        observers.put("allIncomes", incomeObserver);
+        observers.put("allExpenses", expenseObserver);
     }
 
     private void loadLastWeekData() {
@@ -227,6 +258,7 @@ public class HomeViewModel extends BaseViewModel {
 
     private void resetData() {
         transactions.setValue(new ArrayList<>());
+        allTransactions.setValue(new ArrayList<>());
         totalBalance.setValue("0");
         totalExpense.setValue("0");
         totalIncome.setValue(0L);

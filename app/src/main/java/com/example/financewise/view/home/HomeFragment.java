@@ -178,7 +178,13 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     private void updateProgressBarGuideline(float percentage) {
         if(percentage/100 >= 0.18){
             binding.guidelineEnd.setGuidelinePercent(percentage/100f);
+            if(percentage/100 >= 0.75){
+                binding.llProgressBar.setBackgroundResource(R.drawable.rounded_red_progressbar_bg);
+            }else{
+                binding.llProgressBar.setBackgroundResource(R.drawable.rounded_black_progressbar_bg);
+            }
         }else{
+            binding.llProgressBar.setBackgroundResource(R.drawable.rounded_black_progressbar_bg);
             binding.guidelineEnd.setGuidelinePercent(18/100f);
         }
     }

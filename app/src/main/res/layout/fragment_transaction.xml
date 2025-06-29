@@ -82,17 +82,23 @@
             android:paddingBottom="10dp"
             android:layout_marginEnd="25dp">
             <LinearLayout
+                android:id="@+id/ll_income"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="170dp"
                 android:layout_height="100dp"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/rounded_green_white_tvbg">
+
                 <ImageView
+                    android:id="@+id/img_income"
                     android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_income_main_green"/>
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_income_main_green" />
                 <TextView
+                    android:id="@+id/tv_income"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -109,21 +115,27 @@
                     android:textSize="22sp" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_expense"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="170dp"
                 android:layout_height="100dp"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:background="@drawable/rounded_green_white_tvbg">
                 <ImageView
+                    android:id="@+id/img_expense"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_expense_blue"/>
+
                 <TextView
+                    android:id="@+id/tv_expense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/expense"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/tv_total_expense"
@@ -188,8 +200,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:visibility="visible"
                 android:layout_marginBottom="15dp"
                 tools:ignore="NestedWeights" />
+            <TextView
+                android:id="@+id/tv_empty_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:textSize="20sp"
+                android:text="@string/no_transactions_available"/>
+
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

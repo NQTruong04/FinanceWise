@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.airbnb.lottie.L;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -104,5 +105,20 @@ public class BaseFirestoreRepository<T> {
 
     public DocumentReference getDocumentReference(String documentId) {
         return collectionReference.document(documentId);
+    }
+    public LiveData<List<T>> getAllItems(Class<T> itemClass){
+        MutableLiveData<List<T>> itemsLiveData = new MutableLiveData<>();
+        collectionReference.get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful() && task.getResult() != null){
+                        List<T> items = task.getResult().toObjects(itemClass);
+                        Log.d(TAG, "Retrieved all items at path: " + collectionReference.getPath() + ", size " + (items != null ? items.size() : 0));
+                        itemsLiveData.setValue(items);
+                    }else {
+                        Log.d(TAG, "Error setting all items at path: " + collectionReference.getPath());
+                        itemsLiveData.setValue(null);
+                    }
+                });
+    return itemsLiveData;
     }
 }

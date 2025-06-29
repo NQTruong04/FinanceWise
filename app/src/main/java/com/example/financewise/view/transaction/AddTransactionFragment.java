@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.financewise.R;
+import com.example.financewise.view.home.HomeFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,8 +21,11 @@ public class AddTransactionFragment extends Fragment {
     public AddTransactionFragment() {
         // Required empty public constructor
     }
-    public static AddTransactionFragment newInstance(String param1, String param2) {
+    public static AddTransactionFragment newInstance(String userId) {
         AddTransactionFragment fragment = new AddTransactionFragment();
+        Bundle args = new Bundle();
+        args.putString("userId", userId);
+        fragment.setArguments(args);
         return fragment;
     }
 

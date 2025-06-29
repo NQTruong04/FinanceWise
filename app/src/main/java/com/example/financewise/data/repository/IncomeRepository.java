@@ -19,4 +19,7 @@ public class IncomeRepository extends BaseFirestoreRepository<Income> {
     public LiveData<List<Income>> getIncomesByUserAndDateRange(long startDate, long endDate) {
         return getItemsByDateRange( "date", startDate, endDate, Income.class);
     }
+    public LiveData<List<Income>> getAllItems(){
+        return getAllItems(Income.class);
+    }
 }
