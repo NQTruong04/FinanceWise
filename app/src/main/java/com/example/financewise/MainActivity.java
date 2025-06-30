@@ -125,16 +125,16 @@ public class MainActivity extends AppCompatActivity implements LoginCallBack {
                 navigateToHome();
                 return true;
             } else if (itemId == R.id.nav_analysis) {
-                navigationManager.navigateTo(new AnalysisFragment(), true);
+                navigationManager.navigateWithSlideAnimation(new AnalysisFragment(), true);
                 return true;
             } else if (itemId == R.id.nav_transaction) {
-                navigationManager.navigateTo(TransactionFragment.newInstance(currentUserId), true);
+                navigationManager.navigateWithSlideAnimation(TransactionFragment.newInstance(currentUserId), true);
                 return true;
             } else if (itemId == R.id.nav_category) {
-                navigationManager.navigateTo(new CategoriesFragment(), true);
+                navigationManager.navigateWithSlideAnimation(new CategoriesFragment(), true);
                 return true;
             } else if (itemId == R.id.nav_profile) {
-                navigationManager.navigateTo(new ProfileFragment(), true);
+                navigationManager.navigateWithSlideAnimation(new ProfileFragment(), true);
                 return true;
             }
             return false;

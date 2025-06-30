@@ -29,7 +29,6 @@ public class UserRepository extends BaseFirestoreRepository<User> {
                     } else {
                         Log.e(TAG, "Failed to create user profile: " + task.getException().getMessage());
                     }
-                    // Truyền task cho listener để thông báo kết quả
                     if (listener != null) {
                         listener.onComplete(task);
                     }
@@ -40,5 +39,8 @@ public class UserRepository extends BaseFirestoreRepository<User> {
     }
     public LiveData<User> getUser(String userId){
         return getItem(userId, User.class);
+    }
+    public DocumentReference getUserDocumentRef(String userId){
+        return db.collection("users").document(userId);
     }
 }

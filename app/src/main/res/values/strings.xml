@@ -74,6 +74,9 @@
     <string name="change_password">Change Password</string>
     <string name="add_more">Add More</string>
     <string name="no_transactions_available">No transactions available</string>
+    <string name="notification">notification</string>
+    <string name="back">back</string>
+    <string name="home">Home</string>
     <string-array name="category_array">
         <item>Food</item>
         <item>Medicine</item>

@@ -16,21 +16,18 @@ public class UserStatsRepository extends BaseFirestoreRepository<UserStats> {
 
     private static final String TAG = "UserStatsRepository";
     private static final String STATS_DOCUMENT_ID = "stats"; // Định nghĩa documentId cố định
+    private final String currentUserId;
 
     public UserStatsRepository(String userId) {
         super("users", userId); // Collection cha là "users"
+        this.currentUserId = userId;
     }
 
     public LiveData<UserStats> getUserStats(String userId) {
         MutableLiveData<UserStats> userStatsLiveData = new MutableLiveData<>();
         // Xây dựng đường dẫn chính xác từ collection "users"
-        DocumentReference docRef = FirebaseFirestore.getInstance()
-                .collection("users")
-                .document(userId)
-                .collection("userStats")
-                .document(STATS_DOCUMENT_ID);
+        DocumentReference docRef = getUserStatsDocumentRef();
         Log.d(TAG, "Querying userStats at path: " + docRef.getPath());
-
         docRef.get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -48,5 +45,12 @@ public class UserStatsRepository extends BaseFirestoreRepository<UserStats> {
                     }
                 });
         return userStatsLiveData;
+    }
+    public DocumentReference getUserStatsDocumentRef(){
+        return FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(currentUserId)
+                .collection("userStats")
+                .document(STATS_DOCUMENT_ID);
     }
 }

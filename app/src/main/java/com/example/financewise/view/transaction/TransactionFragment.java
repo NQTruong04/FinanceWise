@@ -127,7 +127,7 @@ public class TransactionFragment extends BaseFragment<FragmentTransactionBinding
 
         viewModel.getTotalExpense().observe(getViewLifecycleOwner(), expense -> {
             if (expense != null) {
-                binding.tvTotalExpense.setText(formatCurrency(Math.abs(Long.parseLong(expense.replace(",", "")))));
+                binding.tvTotalExpense.setText(formatCurrency(Long.parseLong(expense.replace(",", ""))));
             }
         });
 

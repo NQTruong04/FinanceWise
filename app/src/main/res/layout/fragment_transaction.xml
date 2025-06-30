@@ -25,6 +25,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="25dp"
+                android:contentDescription="@string/back"
                 android:src="@drawable/ic_back" />
 
             <TextView
@@ -43,6 +44,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:clickable="true"
+                android:contentDescription="@string/notification"
                 android:focusable="true"
                 android:src="@drawable/ic_notifications" />
         </LinearLayout>
@@ -69,7 +71,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="20,000,000"
                     android:textStyle="bold"
                     android:textSize="27sp" />
             </LinearLayout>
@@ -96,6 +97,7 @@
                     android:id="@+id/img_income"
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/income"
                     android:src="@drawable/ic_income_main_green" />
                 <TextView
                     android:id="@+id/tv_income"
@@ -110,7 +112,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="20,000,000"
                     android:textStyle="bold"
                     android:textSize="22sp" />
             </LinearLayout>
@@ -127,6 +128,7 @@
                     android:id="@+id/img_expense"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:contentDescription="@string/expense"
                     android:src="@drawable/ic_expense_blue"/>
 
                 <TextView
@@ -142,7 +144,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="20,000,000"
                     android:textStyle="bold"
                     android:textColor="@color/ocean_blue"
                     android:textSize="22sp" />
