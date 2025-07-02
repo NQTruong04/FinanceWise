@@ -77,6 +77,11 @@
     <string name="notification">notification</string>
     <string name="back">back</string>
     <string name="home">Home</string>
+    <string name="cancel">Cancel</string>
+    <string name="write">Write..</string>
+    <string name="new_category">New Category</string>
+    <string name="goal">Goal</string>
+    <string name="amount_saved">Amount Saved</string>
     <string-array name="category_array">
         <item>Food</item>
         <item>Medicine</item>

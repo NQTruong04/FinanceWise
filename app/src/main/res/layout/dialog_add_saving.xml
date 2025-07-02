@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/rounded_white_bg"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/new_category"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+    <EditText
+        android:id="@+id/tv_saving_name"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:textColorHint="@color/main_green"
+        android:background="@drawable/rounded_light_green_background_30"
+        android:paddingStart="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingEnd="15dp"
+        android:hint="@string/write"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="10dp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        android:layout_width="220dp"
+        android:layout_height="45sp"
+        android:layout_gravity="center"
+        android:text="@string/save"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/main_green" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="220dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:text="@string/cancel"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/light_green"
+        android:layout_marginBottom="20dp" />
+</LinearLayout>

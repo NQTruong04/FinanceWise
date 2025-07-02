@@ -87,4 +87,32 @@
                 app:argType="string" />
         </action>
     </fragment>
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.example.financewise.view.categories.CategoriesFragment"
+        android:label="Categories">
+        <action
+            android:id="@+id/action_categories_to_detail_category"
+            app:destination="@id/detailCategoryFragment"
+            app:popUpTo="@id/categoriesFragment"
+            app:popUpToInclusive="true">
+            <argument
+                android:name="categoryName"
+                app:argType="string" />
+            <argument
+                android:name="userId"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailCategoryFragment"
+        android:name="com.example.financewise.view.categories.DetailCategoryFragment"
+        android:label="Detail Category">
+        <action
+            android:id="@+id/action_detail_category_to_categories"
+            app:destination="@id/categoriesFragment"
+            app:popUpTo="@id/detailCategoryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

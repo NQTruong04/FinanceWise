@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements LoginCallBack {
                 navigationManager.navigateWithSlideAnimation(TransactionFragment.newInstance(currentUserId), true);
                 return true;
             } else if (itemId == R.id.nav_category) {
-                navigationManager.navigateWithSlideAnimation(new CategoriesFragment(), true);
+                navigationManager.navigateWithSlideAnimation(CategoriesFragment.newInstance(currentUserId), true);
                 return true;
             } else if (itemId == R.id.nav_profile) {
                 navigationManager.navigateWithSlideAnimation(new ProfileFragment(), true);
