@@ -1,11 +1,14 @@
 package com.example.financewise.data.model;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class SavingTarget {
+    @DocumentId
     private String id;
     private String userId;
     private long goal;
@@ -38,4 +41,22 @@ public class SavingTarget {
     public void setCategory(String category) { this.category = category; }
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SavingTarget that = (SavingTarget) o;
+        // So sánh tất cả các trường quan trọng. Bao gồm id nếu bạn muốn so sánh dựa trên danh tính duy nhất của tài liệu Firestore
+        return Double.compare(that.goal, goal) == 0 &&
+                Double.compare(that.amountSaved, amountSaved) == 0 &&
+                // Thêm kiểm tra id nếu nó là một phần của tiêu chí "giống nhau"
+                (id == null ? that.id == null : id.equals(that.id)) &&
+                (category == null ? that.category == null : category.equals(that.category));
+    }
+
+    @Override
+    public int hashCode() {
+        // Cần ghi đè hashCode nếu bạn ghi đè equals
+        return Objects.hash(id, goal, amountSaved, category);
+    }
 }

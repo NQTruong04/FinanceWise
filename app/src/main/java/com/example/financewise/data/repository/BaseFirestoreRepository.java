@@ -18,6 +18,15 @@ public class BaseFirestoreRepository<T> {
     protected final FirebaseFirestore firestore;
     protected final CollectionReference collectionReference;
 
+    protected BaseFirestoreRepository(String fullCollectionPath, boolean isFullPath) {
+        this.firestore = FirebaseFirestore.getInstance();
+        if(isFullPath){
+            this.collectionReference = firestore.collection(fullCollectionPath);
+        }else{
+            throw new IllegalArgumentException("Use the other constructor for non-full paths.'");
+        }
+        Log.d(TAG, "Initialized collectionReference with full path: " + collectionReference.getPath());
+    }
     protected BaseFirestoreRepository(String collectionName, String userId) {
         this.firestore = FirebaseFirestore.getInstance();
         if(userId == null){

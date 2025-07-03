@@ -82,6 +82,9 @@
     <string name="new_category">New Category</string>
     <string name="goal">Goal</string>
     <string name="amount_saved">Amount Saved</string>
+    <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
+    <string name="yes_end_session">Yes, End Session</string>
+    <string name="end_session">End Session</string>
     <string-array name="category_array">
         <item>Food</item>
         <item>Medicine</item>

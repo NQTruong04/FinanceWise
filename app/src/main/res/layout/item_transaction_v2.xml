@@ -2,8 +2,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="25sp"
-    android:layout_marginEnd="25sp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent">
     <LinearLayout
@@ -49,9 +47,10 @@
         <!-- Số tiền giao dịch -->
         <TextView
             android:id="@+id/tvAmount"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="left"
+            android:paddingStart="15dp"
             android:text="10.000.000"
             android:textColor="@color/ocean_blue"
             android:textSize="16sp"

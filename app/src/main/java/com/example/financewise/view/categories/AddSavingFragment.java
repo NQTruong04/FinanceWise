@@ -16,7 +16,7 @@ public class AddSavingFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static AddSavingFragment newInstance(String param1, String param2) {
+    public static AddSavingFragment newInstance(String userId) {
         AddSavingFragment fragment = new AddSavingFragment();
         return fragment;
     }

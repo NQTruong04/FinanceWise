@@ -1,11 +1,13 @@
 package com.example.financewise.data.model;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
 public class Saving {
+    @DocumentId
     private String id;
     private Timestamp date;
     private String category;
